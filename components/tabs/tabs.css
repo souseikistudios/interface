@@ -19,7 +19,7 @@
 .tabs {
   --tabs-track: #f7f7f2;
   --tabs-active-surface: #e0dfd7;
-  --tabs-text: #000000;
+  --tabs-text: #171714;
   --tabs-font-size: 18px;
   --tabs-letter: -0.18px;
   --tabs-radius: 999px;
@@ -78,7 +78,7 @@
   margin: 0;
   border: none;
   border-radius: var(--tabs-radius);
-  background: var(--tabs-track);
+  background: transparent;
   color: var(--tabs-text);
   font: normal 400 var(--tabs-font-size) / 1 var(--tabs-font-family);
   letter-spacing: var(--tabs-letter);
@@ -95,12 +95,9 @@
   letter-spacing: inherit;
 }
 
-.tabs__tab[aria-selected="true"] {
-  background: transparent;
-}
 
 .tabs__tab:focus-visible {
-  outline: 2px solid #000000;
+  outline: 2px solid #171714;
   outline-offset: 2px;
 }
 
@@ -121,7 +118,7 @@
   object-fit: contain;
   object-position: center;
   transition: opacity var(--tabs-indicator-duration) var(--tabs-indicator-ease);
-  filter: brightness(0);
+  filter: brightness(0) opacity(0.91);
 }
 
 .tabs__icon-default {
