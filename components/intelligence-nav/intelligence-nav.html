@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Intelligence nav · 130576:121404 artboard</title>
   <link rel="stylesheet" href="../../TOKENS/tokens.css" />
-  <link rel="stylesheet" href="intelligence-nav.css?v=172229" />
+  <link rel="stylesheet" href="intelligence-nav.css?v=172230" />
   <style>
     /* 130576:121404 — white 4K frame, nav centered, top 60px (matches Figma absolute top). */
     body {
@@ -30,6 +30,7 @@
       <div class="intelligence-nav__bar">
         <div class="intelligence-nav__bar-cluster">
           <div class="intelligence-nav__bar-row">
+            <span class="intelligence-nav__indicator" aria-hidden="true"></span>
             <div class="intelligence-nav__group">
               <button
                 type="button"
@@ -47,10 +48,10 @@
 
             <div class="intelligence-nav__mark" aria-hidden="true">
               <img
-                src="../tabs/assets/Icons/YouMoji-filled.svg"
+                src="../../assets/Icons/AI.svg"
                 alt=""
                 width="48"
-                height="42"
+                height="48"
                 decoding="async"
               />
             </div>
@@ -74,12 +75,8 @@
             <div class="intelligence-nav__chats-panel-inner">
               <div class="intelligence-nav__chats-body">
                 <div class="intelligence-nav__search">
-                  <span class="intelligence-nav__search-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="10.5" cy="10.5" r="6.25" stroke="currentColor" stroke-width="1.5" />
-                      <path d="M15.2 15.2L21 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                    </svg>
-                  </span>
+                  <img class="intelligence-nav__search-icon" src="../../assets/Icons/magnifying-glass.svg" alt="" width="24" height="24" aria-hidden="true" decoding="async" />
+                  <img class="intelligence-nav__search-cursor" src="../../assets/Icons/cursor.svg" alt="" width="3" height="24" aria-hidden="true" decoding="async" />
                   <p class="intelligence-nav__search-placeholder">Search Chats</p>
                 </div>
 
@@ -143,6 +140,6 @@
     </div>
   </nav>
 
-  <script src="intelligence-nav.js?v=172229"></script>
+  <script src="intelligence-nav.js?v=172230"></script>
 </body>
 </html>

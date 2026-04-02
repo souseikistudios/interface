@@ -35,10 +35,8 @@
   --inv-search-muted: #c2c2be;
   --inv-radius-collapsed: 28px;
   --inv-radius-bar-open: 20px;
-  /* 131103:172229 tray: each block lifts into place (Meet-adjacent, 25ms). */
-  --inv-tray-lift: 6px;
-  --inv-tray-lift-duration: 25ms;
-  --inv-tray-lift-stagger: 25ms;
+
+
   --inv-pad-collapsed: 10px;
   --inv-pad-frame-open-tb: 10px;
   --inv-pad-frame-open-x: 20px;
@@ -52,11 +50,11 @@
   --inv-item-radius: 18px;
   --inv-font-size: 20px;
   --inv-letter: -0.2px;
-  --inv-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --inv-duration: 180ms;
-  --inv-panel-duration: 480ms;
-  --inv-panel-opacity: 320ms;
-  --inv-panel-ease: var(--motion-meet-ease-fallback, cubic-bezier(0.22, 1, 0.36, 1));
+  --inv-ease: linear(0, 0.4 15%, 0.98 45%, 1);
+  --inv-duration: 120ms;
+  --inv-panel-duration: 360ms;
+  --inv-panel-opacity: 200ms;
+  --inv-panel-ease: linear(0, 0.4 15%, 0.98 45%, 1);
 
   box-sizing: border-box;
 }
@@ -73,13 +71,12 @@
   flex-direction: column;
   align-items: stretch;
   gap: 0;
-  padding: var(--inv-pad-collapsed);
+  padding: var(--inv-pad-collapsed) var(--inv-pad-frame-open-x);
   border-radius: var(--inv-radius-collapsed);
   background-color: var(--inv-track, #edece9);
   width: 100%;
   max-width: 100%;
-  /* Radius stays 28px on Chats hover — do not morph to 38px (user / 172229 shell parity). */
-  transition: padding var(--inv-panel-duration) var(--inv-panel-ease);
+  transition: padding 160ms var(--inv-panel-ease);
 }
 
 .intelligence-nav__frame:has(.intelligence-nav__item--chats:hover),
@@ -87,6 +84,7 @@
 .intelligence-nav__frame:has(.intelligence-nav__item--chats:focus-visible),
 .intelligence-nav__frame:has(.intelligence-nav__chats-panel:focus-within) {
   padding: var(--inv-pad-frame-open-tb) var(--inv-pad-frame-open-x) var(--inv-pad-frame-open-b);
+  transition: padding var(--inv-panel-duration) var(--inv-panel-ease);
 }
 
 /* Centers the cluster; tray is inside cluster so it matches row width (Chats left edge). */
@@ -110,24 +108,43 @@
   width: max-content;
   max-width: 100%;
   gap: 0;
-  transition: gap var(--inv-panel-duration) var(--inv-panel-ease);
-}
-
-/* No overflow:hidden here — it clipped 18px pill corners against the 20px inner radius. */
-.intelligence-nav__frame:has(.intelligence-nav__item--chats:hover) .intelligence-nav__bar-cluster,
-.intelligence-nav__frame:has(.intelligence-nav__chats-panel:hover) .intelligence-nav__bar-cluster,
-.intelligence-nav__frame:has(.intelligence-nav__item--chats:focus-visible) .intelligence-nav__bar-cluster,
-.intelligence-nav__frame:has(.intelligence-nav__chats-panel:focus-within) .intelligence-nav__bar-cluster {
-  gap: var(--inv-tray-gap);
 }
 
 .intelligence-nav__bar-row {
+  position: relative;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
   gap: var(--inv-gap-main);
   flex-shrink: 0;
+}
+
+.intelligence-nav__indicator {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-radius: var(--inv-item-radius);
+  background: var(--inv-item-fill, #ffffff);
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    left var(--inv-duration) var(--inv-ease),
+    top var(--inv-duration) var(--inv-ease),
+    width var(--inv-duration) var(--inv-ease),
+    height var(--inv-duration) var(--inv-ease),
+    opacity var(--inv-duration) var(--inv-ease);
+}
+
+.intelligence-nav__indicator--visible {
+  opacity: 1;
+}
+
+.intelligence-nav__indicator--no-transition {
+  transition: none;
 }
 
 .intelligence-nav__group {
@@ -142,7 +159,7 @@
 .intelligence-nav__mark {
   flex-shrink: 0;
   width: 48px;
-  height: 42px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -151,7 +168,8 @@
 .intelligence-nav__mark img {
   display: block;
   width: 48px;
-  height: 42px;
+  height: 48px;
+  filter: invert(1);
 }
 
 .intelligence-nav__item {
@@ -168,54 +186,14 @@
   letter-spacing: var(--inv-letter, -0.2px);
   font-feature-settings: "dlig" 1;
   cursor: pointer;
-  transition: background-color var(--inv-duration) var(--inv-ease);
   -webkit-tap-highlight-color: transparent;
   -webkit-appearance: none;
   appearance: none;
 }
 
-/* Chats: white pill on hover and for the whole time the tray is open (130576:121404). */
-.intelligence-nav__item--chats {
-  background-color: transparent;
-}
-
-.intelligence-nav__item--chats:hover,
-.intelligence-nav__item--chats:active {
-  background-color: var(--inv-item-fill, #ffffff);
-}
-
-.intelligence-nav__frame:has(.intelligence-nav__item--chats:hover) .intelligence-nav__item--chats,
-.intelligence-nav__frame:has(.intelligence-nav__chats-panel:hover) .intelligence-nav__item--chats,
-.intelligence-nav__frame:has(.intelligence-nav__item--chats:focus-visible) .intelligence-nav__item--chats,
-.intelligence-nav__frame:has(.intelligence-nav__chats-panel:focus-within) .intelligence-nav__item--chats {
-  background-color: var(--inv-item-fill, #ffffff);
-}
-
-.intelligence-nav__item--chats:focus-visible {
+.intelligence-nav__item:focus-visible {
   outline: 2px solid #000000;
   outline-offset: 2px;
-}
-
-.intelligence-nav__item--chats[aria-current="true"] {
-  background-color: var(--inv-item-fill, #ffffff);
-}
-
-.intelligence-nav__item:not(.intelligence-nav__item--chats):hover {
-  background-color: var(--inv-item-fill, #ffffff);
-}
-
-.intelligence-nav__item:not(.intelligence-nav__item--chats):active {
-  background-color: var(--inv-item-fill, #ffffff);
-}
-
-.intelligence-nav__item:not(.intelligence-nav__item--chats):focus-visible {
-  outline: 2px solid #000000;
-  outline-offset: 2px;
-  background-color: var(--inv-item-fill, #ffffff);
-}
-
-.intelligence-nav__item:not(.intelligence-nav__item--chats)[aria-current="true"] {
-  background-color: var(--inv-item-fill, #ffffff);
 }
 
 /* Tray: flex child must shrink; no flex gap when closed. */
@@ -226,13 +204,14 @@
   overflow: hidden;
   opacity: 0;
   transition:
-    grid-template-rows var(--inv-panel-duration) var(--inv-panel-ease),
-    opacity var(--inv-panel-opacity) var(--inv-ease);
+    grid-template-rows 160ms var(--inv-panel-ease),
+    opacity 100ms var(--inv-ease);
 }
 
 .intelligence-nav__chats-panel-inner {
   min-height: 0;
   overflow: hidden;
+  padding-top: 0;
   pointer-events: none;
 }
 
@@ -240,6 +219,7 @@
 .intelligence-nav__frame:has(.intelligence-nav__chats-panel:hover) .intelligence-nav__chats-panel-inner,
 .intelligence-nav__frame:has(.intelligence-nav__item--chats:focus-visible) .intelligence-nav__chats-panel-inner,
 .intelligence-nav__frame:has(.intelligence-nav__chats-panel:focus-within) .intelligence-nav__chats-panel-inner {
+  padding-top: var(--inv-tray-gap);
   pointer-events: auto;
   border-radius: 0 0 var(--inv-radius-bar-open) var(--inv-radius-bar-open);
 }
@@ -250,6 +230,9 @@
 .intelligence-nav__frame:has(.intelligence-nav__chats-panel:focus-within) .intelligence-nav__chats-panel {
   grid-template-rows: 1fr;
   opacity: 1;
+  transition:
+    grid-template-rows var(--inv-panel-duration) var(--inv-panel-ease),
+    opacity var(--inv-panel-opacity) var(--inv-ease);
 }
 
 .intelligence-nav__chats-body {
@@ -259,147 +242,9 @@
   gap: 30px;
 }
 
-/* Stacked lift: each block starts 6px low, rises in 25ms with 25ms stagger (131103:172229). */
-.intelligence-nav__chats-body > .intelligence-nav__search,
-.intelligence-nav__list > .intelligence-nav__list-row {
-  transform: translateY(var(--inv-tray-lift));
-  transition: transform var(--inv-tray-lift-duration) linear;
-  transition-delay: 0ms;
-}
-
-.intelligence-nav__frame:has(
-    .intelligence-nav__item--chats:hover,
-    .intelligence-nav__chats-panel:hover,
-    .intelligence-nav__item--chats:focus-visible,
-    .intelligence-nav__chats-panel:focus-within
-  )
-  .intelligence-nav__chats-body
-  > .intelligence-nav__search {
-  transform: translateY(0);
-  transition-delay: 0ms;
-}
-
-.intelligence-nav__frame:has(
-    .intelligence-nav__item--chats:hover,
-    .intelligence-nav__chats-panel:hover,
-    .intelligence-nav__item--chats:focus-visible,
-    .intelligence-nav__chats-panel:focus-within
-  )
-  .intelligence-nav__list
-  > .intelligence-nav__list-row:nth-child(1) {
-  transform: translateY(0);
-  transition-delay: calc(1 * var(--inv-tray-lift-stagger));
-}
-
-.intelligence-nav__frame:has(
-    .intelligence-nav__item--chats:hover,
-    .intelligence-nav__chats-panel:hover,
-    .intelligence-nav__item--chats:focus-visible,
-    .intelligence-nav__chats-panel:focus-within
-  )
-  .intelligence-nav__list
-  > .intelligence-nav__list-row:nth-child(2) {
-  transform: translateY(0);
-  transition-delay: calc(2 * var(--inv-tray-lift-stagger));
-}
-
-.intelligence-nav__frame:has(
-    .intelligence-nav__item--chats:hover,
-    .intelligence-nav__chats-panel:hover,
-    .intelligence-nav__item--chats:focus-visible,
-    .intelligence-nav__chats-panel:focus-within
-  )
-  .intelligence-nav__list
-  > .intelligence-nav__list-row:nth-child(3) {
-  transform: translateY(0);
-  transition-delay: calc(3 * var(--inv-tray-lift-stagger));
-}
-
-.intelligence-nav__frame:has(
-    .intelligence-nav__item--chats:hover,
-    .intelligence-nav__chats-panel:hover,
-    .intelligence-nav__item--chats:focus-visible,
-    .intelligence-nav__chats-panel:focus-within
-  )
-  .intelligence-nav__list
-  > .intelligence-nav__list-row:nth-child(4) {
-  transform: translateY(0);
-  transition-delay: calc(4 * var(--inv-tray-lift-stagger));
-}
-
-.intelligence-nav__frame:has(
-    .intelligence-nav__item--chats:hover,
-    .intelligence-nav__chats-panel:hover,
-    .intelligence-nav__item--chats:focus-visible,
-    .intelligence-nav__chats-panel:focus-within
-  )
-  .intelligence-nav__list
-  > .intelligence-nav__list-row:nth-child(5) {
-  transform: translateY(0);
-  transition-delay: calc(5 * var(--inv-tray-lift-stagger));
-}
-
-.intelligence-nav__frame:has(
-    .intelligence-nav__item--chats:hover,
-    .intelligence-nav__chats-panel:hover,
-    .intelligence-nav__item--chats:focus-visible,
-    .intelligence-nav__chats-panel:focus-within
-  )
-  .intelligence-nav__list
-  > .intelligence-nav__list-row:nth-child(6) {
-  transform: translateY(0);
-  transition-delay: calc(6 * var(--inv-tray-lift-stagger));
-}
-
-.intelligence-nav__frame:has(
-    .intelligence-nav__item--chats:hover,
-    .intelligence-nav__chats-panel:hover,
-    .intelligence-nav__item--chats:focus-visible,
-    .intelligence-nav__chats-panel:focus-within
-  )
-  .intelligence-nav__list
-  > .intelligence-nav__list-row:nth-child(7) {
-  transform: translateY(0);
-  transition-delay: calc(7 * var(--inv-tray-lift-stagger));
-}
-
-.intelligence-nav__frame:has(
-    .intelligence-nav__item--chats:hover,
-    .intelligence-nav__chats-panel:hover,
-    .intelligence-nav__item--chats:focus-visible,
-    .intelligence-nav__chats-panel:focus-within
-  )
-  .intelligence-nav__list
-  > .intelligence-nav__list-row:nth-child(8) {
-  transform: translateY(0);
-  transition-delay: calc(8 * var(--inv-tray-lift-stagger));
-}
-
-.intelligence-nav__frame:has(
-    .intelligence-nav__item--chats:hover,
-    .intelligence-nav__chats-panel:hover,
-    .intelligence-nav__item--chats:focus-visible,
-    .intelligence-nav__chats-panel:focus-within
-  )
-  .intelligence-nav__list
-  > .intelligence-nav__list-row:nth-child(9) {
-  transform: translateY(0);
-  transition-delay: calc(9 * var(--inv-tray-lift-stagger));
-}
-
-.intelligence-nav__frame:has(
-    .intelligence-nav__item--chats:hover,
-    .intelligence-nav__chats-panel:hover,
-    .intelligence-nav__item--chats:focus-visible,
-    .intelligence-nav__chats-panel:focus-within
-  )
-  .intelligence-nav__list
-  > .intelligence-nav__list-row:nth-child(10) {
-  transform: translateY(0);
-  transition-delay: calc(10 * var(--inv-tray-lift-stagger));
-}
 
 .intelligence-nav__search {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 18px;
@@ -407,15 +252,18 @@
 
 .intelligence-nav__search-icon {
   flex-shrink: 0;
+  display: block;
   width: 24px;
   height: 24px;
-  color: #000000;
 }
 
-.intelligence-nav__search-icon svg {
+.intelligence-nav__search-cursor {
+  position: absolute;
+  left: 35px;
+  top: 0;
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 3px;
+  height: 24px;
 }
 
 .intelligence-nav__search-placeholder {
@@ -487,9 +335,4 @@
     transition-duration: 0.01ms;
   }
 
-  .intelligence-nav__chats-body > .intelligence-nav__search,
-  .intelligence-nav__list > .intelligence-nav__list-row {
-    transform: none;
-    transition: none;
-  }
 }
