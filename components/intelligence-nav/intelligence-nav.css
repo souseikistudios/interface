@@ -16,40 +16,35 @@
   src: url("../tabs/assets/Type/NB%20International%20Pro/NBInternationalPro-Bold.otf") format("opentype");
 }
 
-/* Preview body uses this; Figma 130576:121404 nav `top: 60px` on 4K artboard. */
-:root {
-  --inv-artboard-padding-top: 60px;
-}
 
 .intelligence-nav {
   display: block;
   width: 100%;
   margin-inline: auto;
 
-  /* Strip width; centered on 4K artboard in Figma (130576:121404 · 3840×2160). */
-  --inv-nav-max: 1187px;
+  /* 130576:121404 · Figma values × --inv-scale, preserving all proportions. */
+  --inv-scale: 0.75;
+  --inv-nav-max: calc(1187px * var(--inv-scale));
   max-width: var(--inv-nav-max);
   --inv-track: #edece9;
   --inv-item-fill: #ffffff;
   --inv-text: #000000;
   --inv-search-muted: #c2c2be;
-  --inv-radius-collapsed: 28px;
-  --inv-radius-bar-open: 20px;
+  --inv-radius-collapsed: calc(28px * var(--inv-scale));
+  --inv-radius-bar-open: calc(20px * var(--inv-scale));
 
-
-  --inv-pad-collapsed: 10px;
-  --inv-pad-frame-open-tb: 10px;
-  --inv-pad-frame-open-x: 20px;
-  --inv-pad-frame-open-b: 20px;
-  --inv-tray-gap: 20px;
-  /* Figma 131112:425886 — gap between groups and mark = 240px. */
-  --inv-gap-main: 240px;
-  --inv-gap-items: 10px;
-  --inv-item-pad-x: 40px;
-  --inv-item-pad-y: 24px;
-  --inv-item-radius: 18px;
-  --inv-font-size: 20px;
-  --inv-letter: -0.2px;
+  --inv-pad-collapsed: calc(10px * var(--inv-scale));
+  --inv-pad-frame-open-tb: calc(10px * var(--inv-scale));
+  --inv-pad-frame-open-x: calc(20px * var(--inv-scale));
+  --inv-pad-frame-open-b: calc(20px * var(--inv-scale));
+  --inv-tray-gap: calc(20px * var(--inv-scale));
+  --inv-gap-main: calc(240px * var(--inv-scale));
+  --inv-gap-items: calc(10px * var(--inv-scale));
+  --inv-item-pad-x: calc(40px * var(--inv-scale));
+  --inv-item-pad-y: calc(24px * var(--inv-scale));
+  --inv-item-radius: calc(18px * var(--inv-scale));
+  --inv-font-size: calc(20px * var(--inv-scale));
+  --inv-letter: calc(-0.2px * var(--inv-scale));
   --inv-ease: linear(0, 0.4 15%, 0.98 45%, 1);
   --inv-duration: 120ms;
   --inv-panel-duration: 360ms;
@@ -91,7 +86,7 @@
 .intelligence-nav__bar {
   display: flex;
   flex-wrap: nowrap;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   padding: 0;
   background-color: transparent;
@@ -158,8 +153,8 @@
 
 .intelligence-nav__mark {
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
+  width: calc(48px * var(--inv-scale));
+  height: calc(48px * var(--inv-scale));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -167,8 +162,8 @@
 
 .intelligence-nav__mark img {
   display: block;
-  width: 48px;
-  height: 48px;
+  width: calc(48px * var(--inv-scale));
+  height: calc(48px * var(--inv-scale));
   filter: invert(1);
 }
 
@@ -236,10 +231,10 @@
 }
 
 .intelligence-nav__chats-body {
-  padding: 20px;
+  padding: calc(20px * var(--inv-scale));
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: calc(30px * var(--inv-scale));
 }
 
 
@@ -247,29 +242,29 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: calc(18px * var(--inv-scale));
 }
 
 .intelligence-nav__search-icon {
   flex-shrink: 0;
   display: block;
-  width: 24px;
-  height: 24px;
+  width: calc(24px * var(--inv-scale));
+  height: calc(24px * var(--inv-scale));
 }
 
 .intelligence-nav__search-cursor {
   position: absolute;
-  left: 35px;
+  left: calc(35px * var(--inv-scale));
   top: 0;
   display: block;
-  width: 3px;
-  height: 24px;
+  width: calc(3px * var(--inv-scale));
+  height: calc(24px * var(--inv-scale));
 }
 
 .intelligence-nav__search-placeholder {
   margin: 0;
-  font: normal 400 20px / 1 "NB International Pro", var(--font-sans, system-ui, sans-serif);
-  letter-spacing: -0.2px;
+  font: normal 400 calc(20px * var(--inv-scale)) / 1 "NB International Pro", var(--font-sans, system-ui, sans-serif);
+  letter-spacing: calc(-0.2px * var(--inv-scale));
   font-feature-settings: "dlig" 1;
   color: var(--inv-search-muted, #c2c2be);
 }
@@ -280,14 +275,14 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: calc(20px * var(--inv-scale));
 }
 
 .intelligence-nav__list-row {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 12px;
+  gap: calc(12px * var(--inv-scale));
 }
 
 .intelligence-nav__list-row--full {
@@ -296,32 +291,32 @@
 
 .intelligence-nav__list-title {
   margin: 0;
-  font: normal 400 38px / 1 "NB International Pro", var(--font-sans, system-ui, sans-serif);
-  letter-spacing: -0.76px;
+  font: normal 400 calc(38px * var(--inv-scale)) / 1 "NB International Pro", var(--font-sans, system-ui, sans-serif);
+  letter-spacing: calc(-0.76px * var(--inv-scale));
   font-feature-settings: "dlig" 1;
   color: #000000;
 }
 
 .intelligence-nav__list-thumb {
   flex-shrink: 0;
-  width: 38px;
-  height: 38px;
-  border-radius: 4px;
+  width: calc(38px * var(--inv-scale));
+  height: calc(38px * var(--inv-scale));
+  border-radius: calc(4px * var(--inv-scale));
   background: #000000;
 }
 
 .intelligence-nav__list-thumb--wide {
-  width: 76px;
+  width: calc(76px * var(--inv-scale));
 }
 
 .intelligence-nav__list-thumb--mid {
-  width: 57px;
+  width: calc(57px * var(--inv-scale));
 }
 
 .intelligence-nav__list-count {
   margin: 0;
-  font: normal 700 18px / 1 "NB International Pro", var(--font-sans, system-ui, sans-serif);
-  letter-spacing: -0.36px;
+  font: normal 700 calc(18px * var(--inv-scale)) / 1 "NB International Pro", var(--font-sans, system-ui, sans-serif);
+  letter-spacing: calc(-0.36px * var(--inv-scale));
   font-feature-settings: "dlig" 1;
   color: #000000;
   padding-top: 0.35em;
