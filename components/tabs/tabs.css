@@ -19,7 +19,7 @@
 .tabs {
   --tabs-track: #f7f7f2;
   --tabs-active-surface: #e0dfd7;
-  --tabs-text: #171714;
+  --tabs-text: #000000;
   --tabs-font-size: 18px;
   --tabs-letter: -0.18px;
   --tabs-radius: 999px;
@@ -97,7 +97,7 @@
 
 
 .tabs__tab:focus-visible {
-  outline: 2px solid #171714;
+  outline: 2px solid #000000;
   outline-offset: 2px;
 }
 
@@ -118,7 +118,7 @@
   object-fit: contain;
   object-position: center;
   transition: opacity var(--tabs-indicator-duration) var(--tabs-indicator-ease);
-  filter: brightness(0) opacity(0.91);
+  filter: brightness(0);
 }
 
 .tabs__icon-default {
