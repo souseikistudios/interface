@@ -1,0 +1,109 @@
+# Intelligence Project — Cursor Rules
+
+## Foundation
+
+This project builds the design system and component library for an intelligence company's brand and product ecosystem. Every design decision traces back to a single grounding: Care.
+
+Philosophy governs specification. If code contradicts the philosophy, the code is wrong.
+
+## Voice
+
+State, don't describe. Compress. Trust the reader. No hedging. No "it could be argued." Every comment, every variable name, every component name says something specific.
+
+## Design System
+
+### Color: OKLCH
+
+OKLCH is the source of truth. Hex values are derived for compatibility.
+
+All palette families share a 13-step lightness backbone (steps 25–950). Only chroma and hue change between families.
+
+Green family anchor: H≈139–145°. Chroma peaks at mid-darks, tapers toward neutral at both ends.
+Warm neutral: H=80–107° analogous zone. Hue-locked — scale chroma only, not hue.
+Principle: warmth intensifies as brightness drops. The darks carry the palette's character.
+
+Reference: see `docs/tokens.css` for all values.
+
+### Typography
+
+Typography is tone. Type that looks like it was always there. Breathes with you.
+- Breath lives in leading, tracking, margins, and weight shifts
+- Stillness = generous leading, wide margins
+- Conviction = tighter leading, less air
+- Warmth = balanced — room to enter, not so much you feel alone
+- Japanese principles: Ma (間) — meaningful space between. Hitsuyō Saishōgen (必要最小限) — necessary minimum.
+
+### Motion: Meet · Still · Breathe
+
+Three behaviors of presence. Not animation. Relation.
+
+**Meet** — the arrival. Two forms of awareness entering the same moment. Quick intention, purposeful settle. Use for: component entrances, page transitions, first appearance of intelligence.
+
+**Still** — the holding. Presence confirming itself. Subtle, continuous. Use for: hover states, ambient indicators, "I'm here" signals. Near-zero velocity. Long duration.
+
+**Breathe** — the continuing. Alive, with you, ongoing. Rhythmic, never finished. Use for: loading presence, idle states, background life. Oscillating. Organic.
+
+Motion curves use CSS `linear()` for multi-point easing or spring physics (tension/friction/mass). Three-point curves are preferred over simple cubic-bezier — they allow an inflection point that gives motion its character.
+
+Reference: see `docs/motion.css` for curve definitions when available.
+
+### Components
+
+**Claim Card** — pure typographic hierarchy. Title (relationship condition, not object label) + combination line + age indicator + conditional action button.
+
+**Processing States** — Action · Evidence · Provenance. Three lines always. Active state → settled state (compressed bar, expandable provenance).
+
+**Context States** — Initial · Context · Deep. Three depths. Context expands in place without navigation.
+
+### Code Conventions
+
+- CSS custom properties for all tokens: `--color-green-700`, `--motion-meet-duration`, etc.
+- OKLCH values as source, hex as derived fallback
+- Semantic naming: `--color-surface-primary`, `--color-text-primary` mapping to token steps
+- Components as web components (Lit) for product context, React for prototypes/showcase
+- No generic AI aesthetics: no Inter, no Roboto, no purple gradients, no centered-everything layouts
+- Accessibility: WCAG AA minimum. Contrast ratios documented per token pair.
+
+## Principles
+
+- **Feel states before forms.** Start with what it should feel like.
+- **Simplicity is clarity.** Not reduction — resolution.
+- **Does this serve, or does this perform?** If it's showing the user that intelligence exists, it's performing. If it's making their work better, it's serving.
+- **Intelligence should be native to every component.** Not bolted on. Not a sparkle.
+- **Texture is the evidence of care.** The visible proof that a human was present.
+- **Test against: Honest. Inviting. Rhythmic. Considered. Contextual. Intentional.**
+
+## File Structure
+
+```
+/docs           — design system reference files
+/tokens         — CSS custom properties, OKLCH values
+/components     — individual component directories
+/prototypes     — full-page or multi-component demonstrations
+/motion         — easing curves, spring configs, Rive exports
+```
+
+## Local preview (SERVER + Chrome)
+
+When telling the user how to view HTML/CSS/JS in this repo, **always give both**:
+
+1. **SERVER** — PowerShell from repo root: `powershell -ExecutionPolicy Bypass -File .\serve-preview.ps1`
+2. **CHROME** — Full `http://127.0.0.1:8765/...` URL for the specific page (never only one of these).
+
+Reference: `serve-preview.ps1` header lists all component URLs.
+
+### Cursor Simple Browser (automatic)
+
+- Workspace **`.vscode/tasks.json`** runs **`Open right-click — Simple Browser`** on **`folderOpen`**: starts **`Serve preview (PowerShell)`**, waits for **`PREVIEW_READY`** in terminal output, then opens **Simple Browser** to the right-click preview URL.
+- **`.vscode/settings.json`** sets **`task.allowAutomaticTasks": "on"`** — trust the workspace when prompted so automatic tasks can run.
+- After **editing `components/right-click/**`**, run **Tasks: Run Task** → **`Open right-click — Simple Browser`** (or **`Preview right-click only (Simple Browser)`** if the server is already running) so the Cursor browser tab refreshes against the live URL.
+- If **`simpleBrowser.show`** does not exist in your build, run **Simple Browser: Show** manually and paste the same URL.
+
+## When Generating Code
+
+1. Read `docs/` reference files before generating any component
+2. Use tokens from `tokens/` — never hardcode color or spacing values
+3. Match typography to the movement the moment serves
+4. Match motion to Meet, Still, or Breathe — never use generic ease-in-out
+5. Name components and variables with specificity — "claim-card" not "card", "processing-action" not "status-line"
+6. Every component should feel considered, contextual, intentional

@@ -1,0 +1,159 @@
+/* Tabs — pill tablist with sliding surface, icon lockups, optional panels. */
+
+@font-face {
+  font-family: "KH Teka";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/Type/KH%20Teka/KHTeka-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "KH Teka";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/Type/KH%20Teka/KHTeka-Medium.otf") format("opentype");
+}
+
+.tabs {
+  --tabs-track: #f7f7f2;
+  --tabs-active-surface: #e0dfd7;
+  --tabs-text: #000000;
+  --tabs-font-size: 18px;
+  --tabs-letter: -0.18px;
+  --tabs-radius: 999px;
+  --tabs-gap: 14px;
+  --tabs-pad-outer: 6px;
+  --tabs-pad-x: 20px;
+  --tabs-pad-y: 6px;
+  --tabs-height: 50px;
+  --tabs-lockup-gap: 10px;
+  --tabs-indicator-duration: 150ms;
+  --tabs-indicator-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --tabs-font-family: "KH Teka", var(--font-sans);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tabs-gap);
+  padding: var(--tabs-pad-outer);
+  border-radius: var(--tabs-radius);
+  background: var(--tabs-track);
+  box-sizing: border-box;
+}
+
+.tabs__indicator {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: var(--tabs-height);
+  border-radius: var(--tabs-radius);
+  background: var(--tabs-active-surface);
+  pointer-events: none;
+  transition:
+    left var(--tabs-indicator-duration) var(--tabs-indicator-ease),
+    width var(--tabs-indicator-duration) var(--tabs-indicator-ease),
+    top var(--tabs-indicator-duration) var(--tabs-indicator-ease),
+    height var(--tabs-indicator-duration) var(--tabs-indicator-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs__indicator {
+    transition-duration: 0.01ms;
+  }
+}
+
+.tabs__tab {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tabs-lockup-gap);
+  min-height: var(--tabs-height);
+  padding: var(--tabs-pad-y) var(--tabs-pad-x);
+  margin: 0;
+  border: none;
+  border-radius: var(--tabs-radius);
+  background: var(--tabs-track);
+  color: var(--tabs-text);
+  font: normal 400 var(--tabs-font-size) / 1 var(--tabs-font-family);
+  letter-spacing: var(--tabs-letter);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.tabs__label {
+  font: inherit;
+  font-family: var(--tabs-font-family);
+  font-weight: 400;
+  letter-spacing: inherit;
+}
+
+.tabs__tab[aria-selected="true"] {
+  background: transparent;
+}
+
+.tabs__tab:focus-visible {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+}
+
+.tabs__icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--tabs-text);
+}
+
+.tabs__icon img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transition: opacity var(--tabs-indicator-duration) var(--tabs-indicator-ease);
+  filter: brightness(0);
+}
+
+.tabs__icon-default {
+  opacity: 1;
+}
+
+.tabs__icon-filled {
+  opacity: 0;
+}
+
+.tabs__tab[aria-selected="true"] .tabs__icon-default {
+  opacity: 0;
+}
+
+.tabs__tab[aria-selected="true"] .tabs__icon-filled {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs__icon img {
+    transition-duration: 0.01ms;
+  }
+}
+
+.tabs-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

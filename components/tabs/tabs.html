@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tabs — component preview</title>
+  <link rel="stylesheet" href="../../TOKENS/tokens.css" />
+  <link rel="stylesheet" href="tabs.css" />
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #ffffff;
+      padding: var(--space-lg);
+    }
+  </style>
+</head>
+<body>
+  <div
+    class="tabs"
+    role="tablist"
+    aria-label="Workspace sections"
+    id="tabs-workspace"
+  >
+    <div class="tabs__indicator" aria-hidden="true"></div>
+
+    <button
+      type="button"
+      class="tabs__tab"
+      role="tab"
+      id="tab-insights"
+      aria-selected="true"
+      aria-controls="panel-insights"
+      tabindex="0"
+    >
+      <span class="tabs__icon" aria-hidden="true">
+        <img class="tabs__icon-default" src="assets/Icons/circle-thick.svg" alt="" width="20" height="20" decoding="async" />
+        <img class="tabs__icon-filled" src="assets/Icons/circle-thick-filled.svg" alt="" width="20" height="20" decoding="async" />
+      </span>
+      <span class="tabs__label">Insights</span>
+    </button>
+
+    <button
+      type="button"
+      class="tabs__tab"
+      role="tab"
+      id="tab-team"
+      aria-selected="false"
+      aria-controls="panel-team"
+      tabindex="-1"
+    >
+      <span class="tabs__icon" aria-hidden="true">
+        <img class="tabs__icon-default" src="assets/Icons/user.svg" alt="" width="20" height="20" decoding="async" />
+        <img class="tabs__icon-filled" src="assets/Icons/user-filled.svg" alt="" width="20" height="20" decoding="async" />
+      </span>
+      <span class="tabs__label">Team</span>
+    </button>
+
+    <button
+      type="button"
+      class="tabs__tab"
+      role="tab"
+      id="tab-approvals"
+      aria-selected="false"
+      aria-controls="panel-approvals"
+      tabindex="-1"
+    >
+      <span class="tabs__icon" aria-hidden="true">
+        <img class="tabs__icon-default" src="assets/Icons/grid-four.svg" alt="" width="20" height="20" decoding="async" />
+        <img class="tabs__icon-filled" src="assets/Icons/grid-four-filled.svg" alt="" width="20" height="20" decoding="async" />
+      </span>
+      <span class="tabs__label">Approvals</span>
+    </button>
+
+    <button
+      type="button"
+      class="tabs__tab"
+      role="tab"
+      id="tab-admin"
+      aria-selected="false"
+      aria-controls="panel-admin"
+      tabindex="-1"
+    >
+      <span class="tabs__icon" aria-hidden="true">
+        <img class="tabs__icon-default" src="assets/Icons/console.svg" alt="" width="20" height="20" decoding="async" />
+        <img class="tabs__icon-filled" src="assets/Icons/console-filled.svg" alt="" width="20" height="20" decoding="async" />
+      </span>
+      <span class="tabs__label">Admin</span>
+    </button>
+  </div>
+
+  <div class="tabs-visually-hidden" id="panel-insights" role="tabpanel" aria-labelledby="tab-insights" hidden>
+    Insights
+  </div>
+  <div class="tabs-visually-hidden" id="panel-team" role="tabpanel" aria-labelledby="tab-team" hidden>
+    Team
+  </div>
+  <div class="tabs-visually-hidden" id="panel-approvals" role="tabpanel" aria-labelledby="tab-approvals" hidden>
+    Approvals
+  </div>
+  <div class="tabs-visually-hidden" id="panel-admin" role="tabpanel" aria-labelledby="tab-admin" hidden>
+    Admin
+  </div>
+
+  <script src="tabs.js"></script>
+</body>
+</html>

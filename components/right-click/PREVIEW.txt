@@ -1,0 +1,22 @@
+Right-click component — how to preview
+=======================================
+
+1) Start the server (repo root), keep the terminal open:
+
+   powershell -ExecutionPolicy Bypass -File .\serve-preview.ps1
+
+2) Open in Chrome:
+
+   http://127.0.0.1:8765/components/right-click/right-click.html
+
+   Or double-click "Right-click preview.url" in this folder.
+
+Why file:/// does not work
+--------------------------
+This HTML loads ../../TOKENS/tokens.css and ../../assets/... — browsers block
+or mis-resolve those from a file:// page. The local server is required.
+
+If http://127.0.0.1:8765 fails
+-------------------------------
+The server is not running, or another app is using port 8765.
+Start serve-preview.ps1 and watch for "SERVER · listening".

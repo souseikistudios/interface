@@ -1,0 +1,313 @@
+/* Right-click — circular cursor + menu (131123:807418). 75% scale. */
+
+@font-face {
+  font-family: "NB International Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../assets/Type/NB%20International%20Pro/NBInternationalPro-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "NB International Pro";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../../assets/Type/NB%20International%20Pro/NBInternationalPro-Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "KH Teka";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../assets/Type/KH%20Teka/KHTeka-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "KH Teka";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../../assets/Type/KH%20Teka/KHTeka-Medium.otf") format("opentype");
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+html:has(.right-click--dark),
+html:has(.right-click--dark) body {
+  background: #000000;
+}
+
+/* ── Light mode (default) ── */
+
+.right-click {
+  --rc-scale: 0.75;
+  --rc-duration: 100ms;
+  --rc-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --rc-text: #000000;
+  --rc-page: #ffffff;
+  --rc-panel: #e0e0dc;
+  --rc-radius: calc(32px * var(--rc-scale));
+  --rc-pad-x: calc(30px * var(--rc-scale));
+  --rc-font-size: calc(21px * var(--rc-scale));
+  --rc-letter: calc(-0.42px * var(--rc-scale));
+  --rc-menu-min-width: calc(348px * var(--rc-scale));
+  --rc-hover-inset: calc(14px * var(--rc-scale));
+  --rc-hover-radius: calc(18px * var(--rc-scale));
+  --rc-hover-height: calc(40px * var(--rc-scale));
+  --rc-hover-bg: #c2c2be;
+  --rc-divider: rgba(0, 0, 0, 0.14);
+  --rc-shadow: 0 calc(9px * var(--rc-scale)) calc(30px * var(--rc-scale)) rgba(0, 0, 0, 0.07);
+  --rc-icon-filter: none;
+  --rc-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='9' fill='%23000'/%3E%3C/svg%3E")
+    18 18, crosshair;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: var(--rc-page);
+}
+
+/* ── Dark mode ── */
+
+.right-click--dark {
+  --rc-text: #e7e7e5;
+  --rc-page: #000000;
+  --rc-panel: #141412;
+  --rc-hover-bg: #272725;
+  --rc-divider: rgba(255, 255, 255, 0.12);
+  --rc-shadow: 0 calc(9px * var(--rc-scale)) calc(30px * var(--rc-scale)) rgba(0, 0, 0, 0.4);
+  --rc-icon-filter: invert(1) brightness(0.91);
+  --rc-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='9' fill='%23e7e7e5'/%3E%3C/svg%3E")
+    18 18, crosshair;
+}
+
+.right-click *,
+.right-click *::before,
+.right-click *::after {
+  box-sizing: inherit;
+}
+
+/* ── Toolbar ── */
+
+.right-click__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(12px * var(--rc-scale)) var(--space-lg, 1.5rem);
+  flex-shrink: 0;
+  cursor: auto;
+}
+
+.right-click__hint {
+  margin: 0;
+  font: 500 calc(18px * var(--rc-scale)) / 1.35 "NB International Pro", system-ui, sans-serif;
+  color: var(--rc-text);
+  letter-spacing: -0.02em;
+  opacity: 0.5;
+}
+
+/* ── Theme toggle ── */
+
+.right-click__theme-toggle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(32px * var(--rc-scale));
+  height: calc(32px * var(--rc-scale));
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--rc-text);
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity var(--rc-duration) var(--rc-ease);
+}
+
+.right-click__theme-toggle:hover {
+  opacity: 0.8;
+}
+
+.right-click__theme-toggle svg {
+  width: calc(18px * var(--rc-scale));
+  height: calc(18px * var(--rc-scale));
+}
+
+.right-click__theme-icon--dark { display: none; }
+.right-click--dark .right-click__theme-icon--light { display: none; }
+.right-click--dark .right-click__theme-icon--dark { display: block; }
+
+/* ── Surface ── */
+
+.right-click__surface {
+  flex: 1;
+  min-height: calc(180px * var(--rc-scale));
+  cursor: var(--rc-cursor);
+  user-select: none;
+}
+
+/* ── Menu ── */
+
+.right-click__menu {
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  min-width: var(--rc-menu-min-width);
+  padding: calc(12px * var(--rc-scale)) 0;
+  margin: 0;
+  list-style: none;
+  border: none;
+  border-radius: var(--rc-radius);
+  background: var(--rc-panel);
+  box-shadow: var(--rc-shadow);
+  opacity: 0;
+  transform: translateY(calc(4px * var(--rc-scale))) scale(0.98);
+  transform-origin: 0 0;
+  transition:
+    opacity var(--rc-duration) var(--rc-ease),
+    transform var(--rc-duration) var(--rc-ease);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.right-click__menu > li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.right-click__menu[aria-hidden="false"] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* ── Row ── */
+
+.right-click__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(16px * var(--rc-scale));
+  width: 100%;
+  padding: calc(12px * var(--rc-scale)) var(--rc-pad-x);
+  margin: 0;
+  border: none;
+  background: transparent;
+  font: 400 var(--rc-font-size) / 1 "NB International Pro", system-ui, sans-serif;
+  letter-spacing: var(--rc-letter);
+  font-feature-settings: "dlig" 1;
+  color: var(--rc-text);
+  text-align: left;
+  cursor: var(--rc-cursor);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.right-click__row::before {
+  content: "";
+  position: absolute;
+  left: var(--rc-hover-inset);
+  right: var(--rc-hover-inset);
+  top: 50%;
+  height: var(--rc-hover-height);
+  transform: translateY(-50%);
+  border-radius: var(--rc-hover-radius);
+  background: transparent;
+  pointer-events: none;
+  transition: background var(--rc-duration) var(--rc-ease);
+}
+
+.right-click__row:hover::before,
+.right-click__row:focus-visible::before {
+  background: var(--rc-hover-bg);
+}
+
+.right-click__row:focus-visible {
+  outline: 2px solid var(--rc-text);
+  outline-offset: -2px;
+}
+
+.right-click__label {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Icon rows: line/fill swap on hover ── */
+
+.right-click__row--icon .right-click__label {
+  flex: 0 1 auto;
+}
+
+.right-click__icon {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: calc(24px * var(--rc-scale));
+  height: calc(24px * var(--rc-scale));
+}
+
+.right-click__icon img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: var(--rc-icon-filter);
+}
+
+.right-click__icon .right-click__icon-line {
+  opacity: 1;
+  transition: opacity var(--rc-duration) var(--rc-ease);
+}
+
+.right-click__icon .right-click__icon-fill {
+  opacity: 0;
+  transition: opacity var(--rc-duration) var(--rc-ease);
+}
+
+.right-click__row--icon:hover .right-click__icon-line,
+.right-click__row--icon:focus-visible .right-click__icon-line {
+  opacity: 0;
+}
+
+.right-click__row--icon:hover .right-click__icon-fill,
+.right-click__row--icon:focus-visible .right-click__icon-fill {
+  opacity: 1;
+}
+
+/* ── Divider ── */
+
+.right-click__divider {
+  display: block;
+  width: calc(100% - 2 * var(--rc-hover-inset));
+  height: 1px;
+  margin: calc(18px * var(--rc-scale)) auto calc(12px * var(--rc-scale));
+  border: none;
+  background: var(--rc-divider);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .right-click__menu,
+  .right-click__row::before,
+  .right-click__theme-toggle,
+  .right-click__icon .right-click__icon-line,
+  .right-click__icon .right-click__icon-fill {
+    transition-duration: 0.01ms;
+  }
+}

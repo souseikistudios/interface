@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Intelligence nav · 130576:121404 artboard</title>
+  <link rel="stylesheet" href="../../TOKENS/tokens.css" />
+  <link rel="stylesheet" href="intelligence-nav.css?v=172229" />
+  <style>
+    /* 130576:121404 — white 4K frame, nav centered, top 60px (matches Figma absolute top). */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      background: #ffffff;
+      padding-top: var(--inv-artboard-padding-top, 60px);
+      padding-bottom: var(--space-lg);
+      padding-inline: var(--space-lg);
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+  <nav class="intelligence-nav" aria-label="Intelligence" id="intelligence-nav-demo" data-layout="130576-121404">
+    <div class="intelligence-nav__frame">
+      <div class="intelligence-nav__bar">
+        <div class="intelligence-nav__bar-cluster">
+          <div class="intelligence-nav__bar-row">
+            <div class="intelligence-nav__group">
+              <button
+                type="button"
+                class="intelligence-nav__item intelligence-nav__item--chats"
+                id="intelligence-nav-chats-trigger"
+                aria-expanded="false"
+                aria-controls="intelligence-nav-chats-panel"
+              >
+                Chats
+              </button>
+              <button type="button" class="intelligence-nav__item" tabindex="-1">
+                Projects
+              </button>
+            </div>
+
+            <div class="intelligence-nav__mark" aria-hidden="true">
+              <img
+                src="../tabs/assets/Icons/YouMoji-filled.svg"
+                alt=""
+                width="48"
+                height="42"
+                decoding="async"
+              />
+            </div>
+
+            <div class="intelligence-nav__group">
+              <button type="button" class="intelligence-nav__item" tabindex="-1">
+                Specialists
+              </button>
+              <button type="button" class="intelligence-nav__item" tabindex="-1">
+                Settings
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="intelligence-nav__chats-panel"
+            id="intelligence-nav-chats-panel"
+            role="region"
+            aria-labelledby="intelligence-nav-chats-trigger"
+          >
+            <div class="intelligence-nav__chats-panel-inner">
+              <div class="intelligence-nav__chats-body">
+                <div class="intelligence-nav__search">
+                  <span class="intelligence-nav__search-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="10.5" cy="10.5" r="6.25" stroke="currentColor" stroke-width="1.5" />
+                      <path d="M15.2 15.2L21 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                  </span>
+                  <p class="intelligence-nav__search-placeholder">Search Chats</p>
+                </div>
+
+                <ul class="intelligence-nav__list">
+                  <li class="intelligence-nav__list-row">
+                    <p class="intelligence-nav__list-title">Werner's Nomenclature of Colours</p>
+                    <span class="intelligence-nav__list-thumb" aria-hidden="true"></span>
+                    <p class="intelligence-nav__list-count">2</p>
+                  </li>
+                  <li class="intelligence-nav__list-row intelligence-nav__list-row--full">
+                    <p class="intelligence-nav__list-title">Employee Hub Graduated Engagement Architecture</p>
+                    <span class="intelligence-nav__list-thumb intelligence-nav__list-thumb--wide" aria-hidden="true"></span>
+                    <p class="intelligence-nav__list-count">4</p>
+                  </li>
+                  <li class="intelligence-nav__list-row">
+                    <p class="intelligence-nav__list-title">Cursor Trajectory Prediction</p>
+                    <span class="intelligence-nav__list-thumb intelligence-nav__list-thumb--mid" aria-hidden="true"></span>
+                    <p class="intelligence-nav__list-count">4</p>
+                  </li>
+                  <li class="intelligence-nav__list-row">
+                    <p class="intelligence-nav__list-title">Ambient Presence Widget — Context Menu</p>
+                    <span class="intelligence-nav__list-thumb intelligence-nav__list-thumb--mid" aria-hidden="true"></span>
+                    <p class="intelligence-nav__list-count">4</p>
+                  </li>
+                  <li class="intelligence-nav__list-row intelligence-nav__list-row--full">
+                    <p class="intelligence-nav__list-title">Visual Processing Latency Studies — Cognitive Load</p>
+                    <span class="intelligence-nav__list-thumb intelligence-nav__list-thumb--wide" aria-hidden="true"></span>
+                    <p class="intelligence-nav__list-count">4</p>
+                  </li>
+                  <li class="intelligence-nav__list-row">
+                    <p class="intelligence-nav__list-title">Symbiocene Motion Identity — Principles in Rive</p>
+                    <span class="intelligence-nav__list-thumb" aria-hidden="true"></span>
+                    <p class="intelligence-nav__list-count">2</p>
+                  </li>
+                  <li class="intelligence-nav__list-row">
+                    <p class="intelligence-nav__list-title">Q3 OKR Alignment Milestones</p>
+                    <span class="intelligence-nav__list-thumb" aria-hidden="true"></span>
+                    <p class="intelligence-nav__list-count">2</p>
+                  </li>
+                  <li class="intelligence-nav__list-row intelligence-nav__list-row--full">
+                    <p class="intelligence-nav__list-title">26’ Strategic Presentation — SVP Leadership Readout</p>
+                    <span class="intelligence-nav__list-thumb intelligence-nav__list-thumb--wide" aria-hidden="true"></span>
+                    <p class="intelligence-nav__list-count">4</p>
+                  </li>
+                  <li class="intelligence-nav__list-row">
+                    <p class="intelligence-nav__list-title">Bateson Ecology of Mind</p>
+                    <span class="intelligence-nav__list-thumb intelligence-nav__list-thumb--mid" aria-hidden="true"></span>
+                    <p class="intelligence-nav__list-count">4</p>
+                  </li>
+                  <li class="intelligence-nav__list-row">
+                    <p class="intelligence-nav__list-title">ServiceNow Design Token System</p>
+                    <span class="intelligence-nav__list-thumb intelligence-nav__list-thumb--mid" aria-hidden="true"></span>
+                    <p class="intelligence-nav__list-count">4</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <script src="intelligence-nav.js?v=172229"></script>
+</body>
+</html>

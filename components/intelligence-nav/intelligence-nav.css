@@ -1,0 +1,495 @@
+/* Default: pill row on #edece9. Chats hover: tray opens; Chats keeps white fill (130576:121404). */
+
+@font-face {
+  font-family: "NB International Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../tabs/assets/Type/NB%20International%20Pro/NBInternationalPro-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "NB International Pro";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../tabs/assets/Type/NB%20International%20Pro/NBInternationalPro-Bold.otf") format("opentype");
+}
+
+/* Preview body uses this; Figma 130576:121404 nav `top: 60px` on 4K artboard. */
+:root {
+  --inv-artboard-padding-top: 60px;
+}
+
+.intelligence-nav {
+  display: block;
+  width: 100%;
+  margin-inline: auto;
+
+  /* Strip width; centered on 4K artboard in Figma (130576:121404 · 3840×2160). */
+  --inv-nav-max: 1187px;
+  max-width: var(--inv-nav-max);
+  --inv-track: #edece9;
+  --inv-item-fill: #ffffff;
+  --inv-text: #000000;
+  --inv-search-muted: #c2c2be;
+  --inv-radius-collapsed: 28px;
+  --inv-radius-bar-open: 20px;
+  /* 131103:172229 tray: each block lifts into place (Meet-adjacent, 25ms). */
+  --inv-tray-lift: 6px;
+  --inv-tray-lift-duration: 25ms;
+  --inv-tray-lift-stagger: 25ms;
+  --inv-pad-collapsed: 10px;
+  --inv-pad-frame-open-tb: 10px;
+  --inv-pad-frame-open-x: 20px;
+  --inv-pad-frame-open-b: 20px;
+  --inv-tray-gap: 20px;
+  /* Figma 131112:425886 — gap between groups and mark = 240px. */
+  --inv-gap-main: 240px;
+  --inv-gap-items: 10px;
+  --inv-item-pad-x: 40px;
+  --inv-item-pad-y: 24px;
+  --inv-item-radius: 18px;
+  --inv-font-size: 20px;
+  --inv-letter: -0.2px;
+  --inv-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --inv-duration: 180ms;
+  --inv-panel-duration: 480ms;
+  --inv-panel-opacity: 320ms;
+  --inv-panel-ease: var(--motion-meet-ease-fallback, cubic-bezier(0.22, 1, 0.36, 1));
+
+  box-sizing: border-box;
+}
+
+.intelligence-nav *,
+.intelligence-nav *::before,
+.intelligence-nav *::after {
+  box-sizing: inherit;
+}
+
+/* Shell: collapsed = single 172205 pill (gap 0 — no phantom space under bar). */
+.intelligence-nav__frame {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: var(--inv-pad-collapsed);
+  border-radius: var(--inv-radius-collapsed);
+  background-color: var(--inv-track, #edece9);
+  width: 100%;
+  max-width: 100%;
+  /* Radius stays 28px on Chats hover — do not morph to 38px (user / 172229 shell parity). */
+  transition: padding var(--inv-panel-duration) var(--inv-panel-ease);
+}
+
+.intelligence-nav__frame:has(.intelligence-nav__item--chats:hover),
+.intelligence-nav__frame:has(.intelligence-nav__chats-panel:hover),
+.intelligence-nav__frame:has(.intelligence-nav__item--chats:focus-visible),
+.intelligence-nav__frame:has(.intelligence-nav__chats-panel:focus-within) {
+  padding: var(--inv-pad-frame-open-tb) var(--inv-pad-frame-open-x) var(--inv-pad-frame-open-b);
+}
+
+/* Centers the cluster; tray is inside cluster so it matches row width (Chats left edge). */
+.intelligence-nav__bar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0;
+  background-color: transparent;
+  /* Do not clip — overflow-x clip was cutting pills (Settings, Chats) at the cluster edge. */
+  overflow-x: visible;
+  flex-shrink: 0;
+}
+
+/* Width = bar row intrinsic width; column stacks row + Chats tray (131112). */
+.intelligence-nav__bar-cluster {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: max-content;
+  max-width: 100%;
+  gap: 0;
+  transition: gap var(--inv-panel-duration) var(--inv-panel-ease);
+}
+
+/* No overflow:hidden here — it clipped 18px pill corners against the 20px inner radius. */
+.intelligence-nav__frame:has(.intelligence-nav__item--chats:hover) .intelligence-nav__bar-cluster,
+.intelligence-nav__frame:has(.intelligence-nav__chats-panel:hover) .intelligence-nav__bar-cluster,
+.intelligence-nav__frame:has(.intelligence-nav__item--chats:focus-visible) .intelligence-nav__bar-cluster,
+.intelligence-nav__frame:has(.intelligence-nav__chats-panel:focus-within) .intelligence-nav__bar-cluster {
+  gap: var(--inv-tray-gap);
+}
+
+.intelligence-nav__bar-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--inv-gap-main);
+  flex-shrink: 0;
+}
+
+.intelligence-nav__group {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--inv-gap-items);
+}
+
+.intelligence-nav__mark {
+  flex-shrink: 0;
+  width: 48px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intelligence-nav__mark img {
+  display: block;
+  width: 48px;
+  height: 42px;
+}
+
+.intelligence-nav__item {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: var(--inv-item-pad-y) var(--inv-item-pad-x);
+  border: none;
+  border-radius: var(--inv-item-radius);
+  background-color: transparent;
+  color: var(--inv-text, #000000);
+  font: normal 400 var(--inv-font-size, 20px) / 1 "NB International Pro",
+    var(--font-sans, system-ui, sans-serif);
+  letter-spacing: var(--inv-letter, -0.2px);
+  font-feature-settings: "dlig" 1;
+  cursor: pointer;
+  transition: background-color var(--inv-duration) var(--inv-ease);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Chats: white pill on hover and for the whole time the tray is open (130576:121404). */
+.intelligence-nav__item--chats {
+  background-color: transparent;
+}
+
+.intelligence-nav__item--chats:hover,
+.intelligence-nav__item--chats:active {
+  background-color: var(--inv-item-fill, #ffffff);
+}
+
+.intelligence-nav__frame:has(.intelligence-nav__item--chats:hover) .intelligence-nav__item--chats,
+.intelligence-nav__frame:has(.intelligence-nav__chats-panel:hover) .intelligence-nav__item--chats,
+.intelligence-nav__frame:has(.intelligence-nav__item--chats:focus-visible) .intelligence-nav__item--chats,
+.intelligence-nav__frame:has(.intelligence-nav__chats-panel:focus-within) .intelligence-nav__item--chats {
+  background-color: var(--inv-item-fill, #ffffff);
+}
+
+.intelligence-nav__item--chats:focus-visible {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+}
+
+.intelligence-nav__item--chats[aria-current="true"] {
+  background-color: var(--inv-item-fill, #ffffff);
+}
+
+.intelligence-nav__item:not(.intelligence-nav__item--chats):hover {
+  background-color: var(--inv-item-fill, #ffffff);
+}
+
+.intelligence-nav__item:not(.intelligence-nav__item--chats):active {
+  background-color: var(--inv-item-fill, #ffffff);
+}
+
+.intelligence-nav__item:not(.intelligence-nav__item--chats):focus-visible {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+  background-color: var(--inv-item-fill, #ffffff);
+}
+
+.intelligence-nav__item:not(.intelligence-nav__item--chats)[aria-current="true"] {
+  background-color: var(--inv-item-fill, #ffffff);
+}
+
+/* Tray: flex child must shrink; no flex gap when closed. */
+.intelligence-nav__chats-panel {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    grid-template-rows var(--inv-panel-duration) var(--inv-panel-ease),
+    opacity var(--inv-panel-opacity) var(--inv-ease);
+}
+
+.intelligence-nav__chats-panel-inner {
+  min-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.intelligence-nav__frame:has(.intelligence-nav__item--chats:hover) .intelligence-nav__chats-panel-inner,
+.intelligence-nav__frame:has(.intelligence-nav__chats-panel:hover) .intelligence-nav__chats-panel-inner,
+.intelligence-nav__frame:has(.intelligence-nav__item--chats:focus-visible) .intelligence-nav__chats-panel-inner,
+.intelligence-nav__frame:has(.intelligence-nav__chats-panel:focus-within) .intelligence-nav__chats-panel-inner {
+  pointer-events: auto;
+  border-radius: 0 0 var(--inv-radius-bar-open) var(--inv-radius-bar-open);
+}
+
+.intelligence-nav__frame:has(.intelligence-nav__item--chats:hover) .intelligence-nav__chats-panel,
+.intelligence-nav__frame:has(.intelligence-nav__chats-panel:hover) .intelligence-nav__chats-panel,
+.intelligence-nav__frame:has(.intelligence-nav__item--chats:focus-visible) .intelligence-nav__chats-panel,
+.intelligence-nav__frame:has(.intelligence-nav__chats-panel:focus-within) .intelligence-nav__chats-panel {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.intelligence-nav__chats-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Stacked lift: each block starts 6px low, rises in 25ms with 25ms stagger (131103:172229). */
+.intelligence-nav__chats-body > .intelligence-nav__search,
+.intelligence-nav__list > .intelligence-nav__list-row {
+  transform: translateY(var(--inv-tray-lift));
+  transition: transform var(--inv-tray-lift-duration) linear;
+  transition-delay: 0ms;
+}
+
+.intelligence-nav__frame:has(
+    .intelligence-nav__item--chats:hover,
+    .intelligence-nav__chats-panel:hover,
+    .intelligence-nav__item--chats:focus-visible,
+    .intelligence-nav__chats-panel:focus-within
+  )
+  .intelligence-nav__chats-body
+  > .intelligence-nav__search {
+  transform: translateY(0);
+  transition-delay: 0ms;
+}
+
+.intelligence-nav__frame:has(
+    .intelligence-nav__item--chats:hover,
+    .intelligence-nav__chats-panel:hover,
+    .intelligence-nav__item--chats:focus-visible,
+    .intelligence-nav__chats-panel:focus-within
+  )
+  .intelligence-nav__list
+  > .intelligence-nav__list-row:nth-child(1) {
+  transform: translateY(0);
+  transition-delay: calc(1 * var(--inv-tray-lift-stagger));
+}
+
+.intelligence-nav__frame:has(
+    .intelligence-nav__item--chats:hover,
+    .intelligence-nav__chats-panel:hover,
+    .intelligence-nav__item--chats:focus-visible,
+    .intelligence-nav__chats-panel:focus-within
+  )
+  .intelligence-nav__list
+  > .intelligence-nav__list-row:nth-child(2) {
+  transform: translateY(0);
+  transition-delay: calc(2 * var(--inv-tray-lift-stagger));
+}
+
+.intelligence-nav__frame:has(
+    .intelligence-nav__item--chats:hover,
+    .intelligence-nav__chats-panel:hover,
+    .intelligence-nav__item--chats:focus-visible,
+    .intelligence-nav__chats-panel:focus-within
+  )
+  .intelligence-nav__list
+  > .intelligence-nav__list-row:nth-child(3) {
+  transform: translateY(0);
+  transition-delay: calc(3 * var(--inv-tray-lift-stagger));
+}
+
+.intelligence-nav__frame:has(
+    .intelligence-nav__item--chats:hover,
+    .intelligence-nav__chats-panel:hover,
+    .intelligence-nav__item--chats:focus-visible,
+    .intelligence-nav__chats-panel:focus-within
+  )
+  .intelligence-nav__list
+  > .intelligence-nav__list-row:nth-child(4) {
+  transform: translateY(0);
+  transition-delay: calc(4 * var(--inv-tray-lift-stagger));
+}
+
+.intelligence-nav__frame:has(
+    .intelligence-nav__item--chats:hover,
+    .intelligence-nav__chats-panel:hover,
+    .intelligence-nav__item--chats:focus-visible,
+    .intelligence-nav__chats-panel:focus-within
+  )
+  .intelligence-nav__list
+  > .intelligence-nav__list-row:nth-child(5) {
+  transform: translateY(0);
+  transition-delay: calc(5 * var(--inv-tray-lift-stagger));
+}
+
+.intelligence-nav__frame:has(
+    .intelligence-nav__item--chats:hover,
+    .intelligence-nav__chats-panel:hover,
+    .intelligence-nav__item--chats:focus-visible,
+    .intelligence-nav__chats-panel:focus-within
+  )
+  .intelligence-nav__list
+  > .intelligence-nav__list-row:nth-child(6) {
+  transform: translateY(0);
+  transition-delay: calc(6 * var(--inv-tray-lift-stagger));
+}
+
+.intelligence-nav__frame:has(
+    .intelligence-nav__item--chats:hover,
+    .intelligence-nav__chats-panel:hover,
+    .intelligence-nav__item--chats:focus-visible,
+    .intelligence-nav__chats-panel:focus-within
+  )
+  .intelligence-nav__list
+  > .intelligence-nav__list-row:nth-child(7) {
+  transform: translateY(0);
+  transition-delay: calc(7 * var(--inv-tray-lift-stagger));
+}
+
+.intelligence-nav__frame:has(
+    .intelligence-nav__item--chats:hover,
+    .intelligence-nav__chats-panel:hover,
+    .intelligence-nav__item--chats:focus-visible,
+    .intelligence-nav__chats-panel:focus-within
+  )
+  .intelligence-nav__list
+  > .intelligence-nav__list-row:nth-child(8) {
+  transform: translateY(0);
+  transition-delay: calc(8 * var(--inv-tray-lift-stagger));
+}
+
+.intelligence-nav__frame:has(
+    .intelligence-nav__item--chats:hover,
+    .intelligence-nav__chats-panel:hover,
+    .intelligence-nav__item--chats:focus-visible,
+    .intelligence-nav__chats-panel:focus-within
+  )
+  .intelligence-nav__list
+  > .intelligence-nav__list-row:nth-child(9) {
+  transform: translateY(0);
+  transition-delay: calc(9 * var(--inv-tray-lift-stagger));
+}
+
+.intelligence-nav__frame:has(
+    .intelligence-nav__item--chats:hover,
+    .intelligence-nav__chats-panel:hover,
+    .intelligence-nav__item--chats:focus-visible,
+    .intelligence-nav__chats-panel:focus-within
+  )
+  .intelligence-nav__list
+  > .intelligence-nav__list-row:nth-child(10) {
+  transform: translateY(0);
+  transition-delay: calc(10 * var(--inv-tray-lift-stagger));
+}
+
+.intelligence-nav__search {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.intelligence-nav__search-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: #000000;
+}
+
+.intelligence-nav__search-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.intelligence-nav__search-placeholder {
+  margin: 0;
+  font: normal 400 20px / 1 "NB International Pro", var(--font-sans, system-ui, sans-serif);
+  letter-spacing: -0.2px;
+  font-feature-settings: "dlig" 1;
+  color: var(--inv-search-muted, #c2c2be);
+}
+
+.intelligence-nav__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.intelligence-nav__list-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.intelligence-nav__list-row--full {
+  width: 100%;
+}
+
+.intelligence-nav__list-title {
+  margin: 0;
+  font: normal 400 38px / 1 "NB International Pro", var(--font-sans, system-ui, sans-serif);
+  letter-spacing: -0.76px;
+  font-feature-settings: "dlig" 1;
+  color: #000000;
+}
+
+.intelligence-nav__list-thumb {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 4px;
+  background: #000000;
+}
+
+.intelligence-nav__list-thumb--wide {
+  width: 76px;
+}
+
+.intelligence-nav__list-thumb--mid {
+  width: 57px;
+}
+
+.intelligence-nav__list-count {
+  margin: 0;
+  font: normal 700 18px / 1 "NB International Pro", var(--font-sans, system-ui, sans-serif);
+  letter-spacing: -0.36px;
+  font-feature-settings: "dlig" 1;
+  color: #000000;
+  padding-top: 0.35em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intelligence-nav__item,
+  .intelligence-nav__chats-panel,
+  .intelligence-nav__frame,
+  .intelligence-nav__bar-cluster {
+    transition-duration: 0.01ms;
+  }
+
+  .intelligence-nav__chats-body > .intelligence-nav__search,
+  .intelligence-nav__list > .intelligence-nav__list-row {
+    transform: none;
+    transition: none;
+  }
+}

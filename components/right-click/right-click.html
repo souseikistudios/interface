@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Right-click · 131123:807418</title>
+  <link rel="stylesheet" href="../../TOKENS/tokens.css" />
+  <link rel="stylesheet" href="right-click.css?v=11" />
+</head>
+<body>
+  <div class="right-click" id="right-click-demo" data-node-ref="131123:807418">
+    <div class="right-click__toolbar">
+      <p class="right-click__hint">Right-click anywhere.</p>
+      <button type="button" class="right-click__theme-toggle" aria-label="Toggle dark mode" data-theme-toggle>
+        <svg class="right-click__theme-icon--light" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path d="M10 3.75C6.548 3.75 3.75 6.548 3.75 10s2.798 6.25 6.25 6.25 6.25-2.798 6.25-6.25S13.452 3.75 10 3.75zM1.25 10C1.25 5.168 5.168 1.25 10 1.25s8.75 3.918 8.75 8.75-3.918 8.75-8.75 8.75S1.25 14.832 1.25 10z"/>
+        </svg>
+        <svg class="right-click__theme-icon--dark" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <circle cx="10" cy="10" r="8.75"/>
+        </svg>
+      </button>
+    </div>
+    <div class="right-click__surface" aria-label="Custom context menu target"></div>
+
+    <ul class="right-click__menu" id="right-click-menu" role="menu" aria-label="Actions" aria-hidden="true">
+      <li role="none">
+        <button type="button" class="right-click__row right-click__row--icon" role="menuitem">
+          <span class="right-click__label">Send</span>
+          <span class="right-click__icon" aria-hidden="true">
+            <img class="right-click__icon-line" src="../../assets/Icons/send.svg" alt="" width="24" height="24" decoding="async" />
+            <img class="right-click__icon-fill" src="../../assets/Icons/send-filled.svg" alt="" width="24" height="24" decoding="async" />
+          </span>
+        </button>
+      </li>
+
+      <li role="separator"><hr class="right-click__divider" /></li>
+
+      <li role="none">
+        <button type="button" class="right-click__row right-click__row--icon" role="menuitem">
+          <span class="right-click__label">Summarize</span>
+          <span class="right-click__icon" aria-hidden="true">
+            <img class="right-click__icon-line" src="../../assets/Icons/document-txt.svg" alt="" width="24" height="24" decoding="async" />
+            <img class="right-click__icon-fill" src="../../assets/Icons/document-txt-filled.svg" alt="" width="24" height="24" decoding="async" />
+          </span>
+        </button>
+      </li>
+
+      <li role="none">
+        <button type="button" class="right-click__row right-click__row--icon" role="menuitem">
+          <span class="right-click__label">Ask</span>
+          <span class="right-click__icon" aria-hidden="true">
+            <img class="right-click__icon-line" src="../../assets/Icons/chat.svg" alt="" width="24" height="24" decoding="async" />
+            <img class="right-click__icon-fill" src="../../assets/Icons/chat-filled.svg" alt="" width="24" height="24" decoding="async" />
+          </span>
+        </button>
+      </li>
+
+      <li role="none">
+        <button type="button" class="right-click__row right-click__row--icon" role="menuitem">
+          <span class="right-click__label">Modify</span>
+          <span class="right-click__icon" aria-hidden="true">
+            <img class="right-click__icon-line" src="../../assets/Icons/plus.svg" alt="" width="24" height="24" decoding="async" />
+            <img class="right-click__icon-fill" src="../../assets/Icons/plus-filled.svg" alt="" width="24" height="24" decoding="async" />
+          </span>
+        </button>
+      </li>
+
+      <li role="separator"><hr class="right-click__divider" /></li>
+
+      <li role="none">
+        <button type="button" class="right-click__row right-click__row--icon" role="menuitem">
+          <span class="right-click__label">Settings</span>
+          <span class="right-click__icon" aria-hidden="true">
+            <img class="right-click__icon-line" src="../../assets/Icons/gear.svg" alt="" width="24" height="24" decoding="async" />
+            <img class="right-click__icon-fill" src="../../assets/Icons/gear-filled.svg" alt="" width="24" height="24" decoding="async" />
+          </span>
+        </button>
+      </li>
+
+      <li role="none">
+        <button type="button" class="right-click__row right-click__row--icon" role="menuitem">
+          <span class="right-click__label">Plugins</span>
+          <span class="right-click__icon" aria-hidden="true">
+            <img class="right-click__icon-line" src="../../assets/Icons/ellipsis-v.svg" alt="" width="24" height="24" decoding="async" />
+            <img class="right-click__icon-fill" src="../../assets/Icons/ellipsis-v-filled.svg" alt="" width="24" height="24" decoding="async" />
+          </span>
+        </button>
+      </li>
+
+      <li role="none">
+        <button type="button" class="right-click__row right-click__row--icon" role="menuitem">
+          <span class="right-click__label">Compliance</span>
+          <span class="right-click__icon" aria-hidden="true">
+            <img class="right-click__icon-line" src="../../assets/Icons/ellipsis-v.svg" alt="" width="24" height="24" decoding="async" />
+            <img class="right-click__icon-fill" src="../../assets/Icons/ellipsis-v-filled.svg" alt="" width="24" height="24" decoding="async" />
+          </span>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <script src="right-click.js?v=6"></script>
+</body>
+</html>
