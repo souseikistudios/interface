@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Widgets · Snap Canvas</title>
+  <link rel="stylesheet" href="../../TOKENS/tokens.css" />
+  <link rel="stylesheet" href="widgets.css" />
+</head>
+<body>
+  <div class="widgets" id="widgets-canvas">
+    <p class="widgets__hint">Drag to move · Right-click to resize · Hold Shift for freeform</p>
+
+    <div class="widgets__card" data-size="small" style="left: 80px; top: 80px;">
+      <span class="widgets__card-label">S · 180×180</span>
+    </div>
+
+    <div class="widgets__card" data-size="medium" style="left: 340px; top: 80px;">
+      <span class="widgets__card-label">M · 360×180</span>
+    </div>
+
+    <div class="widgets__card" data-size="large" style="left: 80px; top: 340px;">
+      <span class="widgets__card-label">L · 360×360</span>
+    </div>
+
+    <div class="widgets__card" data-size="xl" style="left: 560px; top: 300px;">
+      <span class="widgets__card-label">XL · 360×540</span>
+    </div>
+
+    <ul class="widgets__menu" id="widgets-menu" role="menu" aria-label="Widget size" aria-hidden="true">
+      <li role="none">
+        <button type="button" class="widgets__menu-item" role="menuitem" data-set-size="small">
+          <span class="widgets__menu-label">S</span>
+          <span class="widgets__menu-dim">180x180</span>
+        </button>
+      </li>
+      <li role="none">
+        <button type="button" class="widgets__menu-item" role="menuitem" data-set-size="medium">
+          <span class="widgets__menu-label">M</span>
+          <span class="widgets__menu-dim">360x180</span>
+        </button>
+      </li>
+      <li role="none">
+        <button type="button" class="widgets__menu-item" role="menuitem" data-set-size="large">
+          <span class="widgets__menu-label">L</span>
+          <span class="widgets__menu-dim">360x360</span>
+        </button>
+      </li>
+      <li role="none">
+        <button type="button" class="widgets__menu-item" role="menuitem" data-set-size="xl">
+          <span class="widgets__menu-label">XL</span>
+          <span class="widgets__menu-dim">360x540</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <script src="widgets.js"></script>
+</body>
+</html>

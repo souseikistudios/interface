@@ -1,11 +1,16 @@
 /* Default: pill row on #edece9. Chats hover: tray opens; Chats keeps white fill (130576:121404). */
 
+/* Force custom cursor across the entire page */
+html, html *, html *::before, html *::after {
+  cursor: url("../../assets/Icons/Cursor_000.svg") 2 1, default !important;
+}
+
 @font-face {
   font-family: "NB International Pro";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("../tabs/assets/Type/NB%20International%20Pro/NBInternationalPro-Regular.otf") format("opentype");
+  src: url("../../assets/Type/NB%20International%20Pro/NBInternationalPro-Regular.otf") format("opentype");
 }
 
 @font-face {
@@ -13,11 +18,12 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("../tabs/assets/Type/NB%20International%20Pro/NBInternationalPro-Bold.otf") format("opentype");
+  src: url("../../assets/Type/NB%20International%20Pro/NBInternationalPro-Bold.otf") format("opentype");
 }
 
 
 .intelligence-nav {
+  --inv-cursor: url("../../assets/Icons/Cursor_000.svg") 2 1, default;
   display: block;
   width: 100%;
   margin-inline: auto;
@@ -180,7 +186,7 @@
     var(--font-sans, system-ui, sans-serif);
   letter-spacing: var(--inv-letter, -0.2px);
   font-feature-settings: "dlig" 1;
-  cursor: pointer;
+  cursor: var(--inv-cursor);
   -webkit-tap-highlight-color: transparent;
   -webkit-appearance: none;
   appearance: none;
