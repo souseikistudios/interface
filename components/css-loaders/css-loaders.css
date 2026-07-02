@@ -14,6 +14,13 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 .loaders {
   --loaders-bg: #edece9;
   --loaders-dot: #000000;
@@ -22,7 +29,7 @@
   --loaders-speed: 1.8s;
   --loaders-stag-flow: 0.064;
 
-  min-height: 100vh;
+  height: 100vh;
   background: var(--loaders-bg);
   color: var(--loaders-line);
   font-family: "NB International Pro", var(--font-sans, system-ui, sans-serif);
