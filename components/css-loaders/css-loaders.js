@@ -8,7 +8,7 @@
   var unit = document.getElementById("loaders-unit");
 
   var unitMode = "s";
-  var speed = 1.8;
+  var speed = 1.4;
   var dragStartX = null;
   var moved = false;
   var unitRect = null;
