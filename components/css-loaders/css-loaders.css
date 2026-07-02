@@ -28,6 +28,8 @@ body {
   --loaders-flow: cubic-bezier(0.66, 0.2, 0, 1);
   --loaders-speed: 1.4s;
   --loaders-stag-flow: 0.064;
+  --loaders-cell-pad-x: 140px;
+  --loaders-row-pad-y: 96px;
 
   height: 100vh;
   background: var(--loaders-bg);
@@ -51,6 +53,11 @@ body {
 
 .loaders__rack + .loaders__rack .loaders__cell {
   border-top: 1px solid var(--loaders-line);
+  padding-top: var(--loaders-row-pad-y);
+}
+
+.loaders__rack:first-child .loaders__cell {
+  padding-bottom: var(--loaders-row-pad-y);
 }
 
 .loaders__settle {
@@ -80,7 +87,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 30px;
-  padding: 0 72px;
+  padding: 0 var(--loaders-cell-pad-x);
   border-right: 1px solid var(--loaders-line);
 }
 
@@ -359,12 +366,26 @@ body {
 
   .loaders__rack + .loaders__rack .loaders__cell {
     border-top: none;
+    padding-top: 0;
+  }
+
+  .loaders__rack:first-child .loaders__cell {
+    padding-bottom: 0;
+  }
+
+  .loaders__rack:first-child .loaders__cell:last-child {
+    padding-bottom: var(--loaders-row-pad-y);
+    border-bottom: 1px solid var(--loaders-line);
+  }
+
+  .loaders__rack + .loaders__rack .loaders__cell:first-child {
+    padding-top: var(--loaders-row-pad-y);
   }
 
   .loaders__cell {
     border-right: none;
     border-bottom: 1px solid var(--loaders-line);
-    padding: 56px 0;
+    padding: 72px 0;
   }
 
   .loaders__rack:last-child .loaders__cell:last-child {
