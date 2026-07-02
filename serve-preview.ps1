@@ -24,10 +24,10 @@ try {
 }
 
 if ($portAlreadyServing) {
-  Write-Host "SERVER · listening: http://127.0.0.1:$port/ (reuse — port already open)"
+  Write-Host "SERVER | listening: http://127.0.0.1:$port/ (reuse - port already open)"
   Write-Host "Root: $root"
   Write-Host ""
-  Write-Host "CHROME · open one of:"
+  Write-Host "CHROME | open one of:"
   Write-Host "  http://127.0.0.1:$port/components/tabs/tabs.html"
   Write-Host "  http://127.0.0.1:$port/components/intelligence-nav/intelligence-nav.html"
   Write-Host "  http://127.0.0.1:$port/components/right-click/right-click.html"
@@ -59,10 +59,10 @@ if (-not (Test-Path -LiteralPath $rcHtml -PathType Leaf)) {
 }
 Write-Host ""
 
-Write-Host "SERVER · listening: http://127.0.0.1:$port/"
+Write-Host "SERVER | listening: http://127.0.0.1:$port/"
 Write-Host "Root: $root"
 Write-Host ""
-Write-Host "CHROME · open one of:"
+Write-Host "CHROME | open one of:"
 Write-Host "  http://127.0.0.1:$port/components/tabs/tabs.html"
 Write-Host "  http://127.0.0.1:$port/components/intelligence-nav/intelligence-nav.html"
 Write-Host "  http://127.0.0.1:$port/components/right-click/right-click.html"
