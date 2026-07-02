@@ -1,0 +1,333 @@
+/* CSS Loaders — three Breathe variants with speed dock. */
+
+@font-face {
+  font-family: "NB International Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../assets/Type/NB%20International%20Pro/NBInternationalPro-Regular.otf") format("opentype");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.loaders {
+  --loaders-bg: #edece9;
+  --loaders-dot: #000000;
+  --loaders-line: #c2c2be;
+  --loaders-flow: cubic-bezier(0.66, 0.2, 0, 1);
+  --loaders-speed: 1.8s;
+  --loaders-stag-flow: 0.064;
+
+  min-height: 100vh;
+  background: var(--loaders-bg);
+  color: var(--loaders-line);
+  font-family: "NB International Pro", var(--font-sans, system-ui, sans-serif);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+}
+
+.loaders__rack {
+  display: flex;
+  align-items: stretch;
+}
+
+.loaders__cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 0 72px;
+  border-right: 1px solid var(--loaders-line);
+}
+
+.loaders__cell:last-child {
+  border-right: none;
+}
+
+.loaders__stage {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loaders__tag {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--loaders-line);
+}
+
+@keyframes loaders-spin {
+  from {
+    transform: rotate(var(--loaders-base));
+  }
+
+  to {
+    transform: rotate(calc(var(--loaders-base) + 360deg));
+  }
+}
+
+@keyframes loaders-orbit-rotate {
+  from {
+    transform: rotate(45deg);
+  }
+
+  to {
+    transform: rotate(405deg);
+  }
+}
+
+@keyframes loaders-orbit-pulse {
+  0%,
+  50%,
+  100% {
+    transform: scale(1);
+  }
+
+  25%,
+  75% {
+    transform: scale(1.22);
+  }
+}
+
+.loaders__diamond-flow,
+.loaders__diamond-joint {
+  width: 3.8rem;
+  height: 3.8rem;
+  position: relative;
+}
+
+.loaders__diamond-flow .loaders__arm,
+.loaders__diamond-joint .loaders__arm {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  animation: loaders-spin var(--loaders-speed) var(--loaders-flow) infinite;
+}
+
+.loaders__diamond-flow .loaders__arm::after,
+.loaders__diamond-joint .loaders__arm::after {
+  content: "";
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: var(--loaders-dot);
+}
+
+.loaders__diamond-flow .loaders__arm:nth-child(1) {
+  --loaders-base: 0deg;
+}
+
+.loaders__diamond-flow .loaders__arm:nth-child(2) {
+  --loaders-base: 90deg;
+  animation-delay: calc(var(--loaders-speed) * var(--loaders-stag-flow) * -1);
+}
+
+.loaders__diamond-flow .loaders__arm:nth-child(3) {
+  --loaders-base: 180deg;
+  animation-delay: calc(var(--loaders-speed) * var(--loaders-stag-flow) * -2);
+}
+
+.loaders__diamond-flow .loaders__arm:nth-child(4) {
+  --loaders-base: 270deg;
+  animation-delay: calc(var(--loaders-speed) * var(--loaders-stag-flow) * -3);
+}
+
+.loaders__diamond-joint .loaders__arm {
+  animation: loaders-spin calc(var(--loaders-speed) * 1.12) var(--loaders-flow) infinite;
+}
+
+.loaders__diamond-joint .loaders__arm:nth-child(1) {
+  --loaders-base: 0deg;
+}
+
+.loaders__diamond-joint .loaders__arm:nth-child(2) {
+  --loaders-base: 90deg;
+  animation-delay: calc(var(--loaders-speed) * -0.028);
+}
+
+.loaders__diamond-joint .loaders__arm:nth-child(3) {
+  --loaders-base: 180deg;
+  animation-delay: calc(var(--loaders-speed) * -0.056);
+}
+
+.loaders__diamond-joint .loaders__arm:nth-child(4) {
+  --loaders-base: 270deg;
+  animation-delay: calc(var(--loaders-speed) * -0.084);
+}
+
+.loaders__orbit {
+  width: 3rem;
+  height: 3rem;
+  position: relative;
+  animation: loaders-orbit-rotate var(--loaders-speed) cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.loaders__orbit-scale {
+  position: absolute;
+  inset: 0;
+  animation: loaders-orbit-pulse var(--loaders-speed) var(--loaders-flow) infinite;
+}
+
+.loaders__orbit-dot {
+  position: absolute;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: var(--loaders-dot);
+}
+
+.loaders__orbit-dot--tl {
+  top: 0;
+  left: 0;
+}
+
+.loaders__orbit-dot--tr {
+  top: 0;
+  right: 0;
+}
+
+.loaders__orbit-dot--bl {
+  bottom: 0;
+  left: 0;
+}
+
+.loaders__orbit-dot--br {
+  bottom: 0;
+  right: 0;
+}
+
+.loaders__download {
+  position: fixed;
+  top: 22px;
+  right: 24px;
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.loaders__dock {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 18px;
+  background: var(--loaders-bg);
+  border: 1px solid var(--loaders-line);
+  border-radius: 14px;
+}
+
+.loaders__speed {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.loaders__range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 130px;
+  height: 2px;
+  background: var(--loaders-line);
+  outline: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.loaders__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--loaders-dot);
+}
+
+.loaders__range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: none;
+  border-radius: 50%;
+  background: var(--loaders-dot);
+}
+
+.loaders__speed-value {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--loaders-line);
+  min-width: 44px;
+}
+
+.loaders__divider {
+  width: 1px;
+  height: 18px;
+  background: var(--loaders-line);
+}
+
+.loaders__unit {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--loaders-line);
+  border-radius: 9px;
+  background: #ffffff;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+}
+
+.loaders__unit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 24px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--loaders-dot);
+  border-radius: 6px;
+  transition: background 120ms ease;
+}
+
+.loaders__unit-btn--active {
+  background: #e0e0dc;
+}
+
+@media (max-width: 640px) {
+  .loaders__rack {
+    flex-direction: column;
+  }
+
+  .loaders__cell {
+    border-right: none;
+    border-bottom: 1px solid var(--loaders-line);
+    padding: 56px 0;
+  }
+
+  .loaders__cell:last-child {
+    border-bottom: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loaders__arm,
+  .loaders__orbit,
+  .loaders__orbit-scale {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

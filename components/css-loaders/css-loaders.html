@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CSS Loaders — component preview</title>
+  <link rel="stylesheet" href="../../TOKENS/tokens.css" />
+  <link rel="stylesheet" href="css-loaders.css" />
+</head>
+<body>
+  <div class="loaders" id="loaders-root">
+    <button class="loaders__download" id="loaders-download" type="button" aria-label="Download SVG">
+      <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 24C4 25.6569 5.34315 27 7 27H25C26.6569 27 28 25.6569 28 24V21.5381H30V24C30 26.7614 27.7614 29 25 29H7C4.23858 29 2 26.7614 2 24V21H4V24Z" fill="#000000"></path>
+        <path d="M17 19.25L23.5381 13L25 14.3975L16 23L7 14.3975L8.46191 13L15 19.25V2H17V19.25Z" fill="#000000"></path>
+      </svg>
+    </button>
+
+    <div class="loaders__rack">
+      <div class="loaders__cell">
+        <div class="loaders__stage">
+          <div class="loaders__diamond-flow" aria-hidden="true">
+            <span class="loaders__arm"></span>
+            <span class="loaders__arm"></span>
+            <span class="loaders__arm"></span>
+            <span class="loaders__arm"></span>
+          </div>
+        </div>
+        <div class="loaders__tag">A1</div>
+      </div>
+
+      <div class="loaders__cell">
+        <div class="loaders__stage">
+          <div class="loaders__diamond-joint" aria-hidden="true">
+            <span class="loaders__arm"></span>
+            <span class="loaders__arm"></span>
+            <span class="loaders__arm"></span>
+            <span class="loaders__arm"></span>
+          </div>
+        </div>
+        <div class="loaders__tag">A2</div>
+      </div>
+
+      <div class="loaders__cell">
+        <div class="loaders__stage">
+          <div class="loaders__orbit" aria-hidden="true">
+            <div class="loaders__orbit-scale">
+              <span class="loaders__orbit-dot loaders__orbit-dot--tl"></span>
+              <span class="loaders__orbit-dot loaders__orbit-dot--tr"></span>
+              <span class="loaders__orbit-dot loaders__orbit-dot--bl"></span>
+              <span class="loaders__orbit-dot loaders__orbit-dot--br"></span>
+            </div>
+          </div>
+        </div>
+        <div class="loaders__tag">A3</div>
+      </div>
+    </div>
+
+    <div class="loaders__dock">
+      <div class="loaders__speed">
+        <input
+          class="loaders__range"
+          id="loaders-range"
+          type="range"
+          min="0.6"
+          max="4"
+          step="0.1"
+          value="1.8"
+          aria-label="Animation speed"
+        />
+        <span class="loaders__speed-value" id="loaders-speed-value">1.8s</span>
+      </div>
+      <div class="loaders__divider" aria-hidden="true"></div>
+      <div class="loaders__unit" id="loaders-unit">
+        <span class="loaders__unit-btn loaders__unit-btn--active" id="loaders-unit-ms">MS</span>
+        <span class="loaders__unit-btn" id="loaders-unit-s">S</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="css-loaders.js"></script>
+</body>
+</html>

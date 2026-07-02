@@ -7,6 +7,7 @@
 #   http://127.0.0.1:8765/components/tabs/tabs.html
 #   http://127.0.0.1:8765/components/intelligence-nav/intelligence-nav.html
 #   http://127.0.0.1:8765/components/right-click/right-click.html
+#   http://127.0.0.1:8765/components/css-loaders/css-loaders.html
 
 $port = 8765
 $root = [System.IO.Path]::GetFullPath($PSScriptRoot)
@@ -30,6 +31,7 @@ if ($portAlreadyServing) {
   Write-Host "  http://127.0.0.1:$port/components/tabs/tabs.html"
   Write-Host "  http://127.0.0.1:$port/components/intelligence-nav/intelligence-nav.html"
   Write-Host "  http://127.0.0.1:$port/components/right-click/right-click.html"
+  Write-Host "  http://127.0.0.1:$port/components/css-loaders/css-loaders.html"
   Write-Host ""
   Write-Host "PREVIEW_READY"
   while ($true) { Start-Sleep -Seconds 3600 }
@@ -64,6 +66,7 @@ Write-Host "CHROME · open one of:"
 Write-Host "  http://127.0.0.1:$port/components/tabs/tabs.html"
 Write-Host "  http://127.0.0.1:$port/components/intelligence-nav/intelligence-nav.html"
 Write-Host "  http://127.0.0.1:$port/components/right-click/right-click.html"
+Write-Host "  http://127.0.0.1:$port/components/css-loaders/css-loaders.html"
 Write-Host ""
 Write-Host "Press Ctrl+C to stop the server."
 Write-Host ""
