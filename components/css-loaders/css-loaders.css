@@ -39,9 +39,39 @@ body {
   padding: 48px;
 }
 
+.loaders__grid {
+  display: flex;
+  flex-direction: column;
+}
+
 .loaders__rack {
   display: flex;
   align-items: stretch;
+}
+
+.loaders__rack + .loaders__rack .loaders__cell {
+  border-top: 1px solid var(--loaders-line);
+}
+
+.loaders__settle {
+  --loaders-flow: linear(
+    0.0000,
+    0.0076 6.1%,
+    0.0344 12.6%,
+    0.0787 18.3%,
+    0.1386 23.4%,
+    0.2007 27.5%,
+    0.2716 31.3%,
+    0.5614 44.5%,
+    0.6776 50.4%,
+    0.7822 56.9%,
+    0.8595 63.4%,
+    0.9225 71.1%,
+    0.9478 75.5%,
+    0.9685 80.3%,
+    0.9919 89.4%,
+    1.0000
+  );
 }
 
 .loaders__cell {
@@ -177,6 +207,10 @@ body {
   height: 3rem;
   position: relative;
   animation: loaders-orbit-rotate var(--loaders-speed) cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.loaders__settle .loaders__orbit {
+  animation: loaders-orbit-rotate var(--loaders-speed) var(--loaders-flow) infinite;
 }
 
 .loaders__orbit-scale {
@@ -315,8 +349,16 @@ body {
 }
 
 @media (max-width: 640px) {
+  .loaders__grid {
+    width: 100%;
+  }
+
   .loaders__rack {
     flex-direction: column;
+  }
+
+  .loaders__rack + .loaders__rack .loaders__cell {
+    border-top: none;
   }
 
   .loaders__cell {
@@ -325,7 +367,7 @@ body {
     padding: 56px 0;
   }
 
-  .loaders__cell:last-child {
+  .loaders__rack:last-child .loaders__cell:last-child {
     border-bottom: none;
   }
 }
